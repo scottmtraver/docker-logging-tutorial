@@ -184,7 +184,7 @@ countdown:
     log_driver: syslog
     log_opt: 
         syslog-address: "udp://192.168.99.101:5514"
-        syslog-tag: "countdown"
+        tag: "countdown"
 syslog:
     image: voxxit/rsyslog 
     ports:

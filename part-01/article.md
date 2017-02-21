@@ -90,11 +90,11 @@ This is one of the many logging drivers which allows you to send  messages to lo
 
 and now lets launch our sample application but this time we will specify the logging driver to be used:
 
-    $ docker run --log-driver=syslog --log-opt syslog-address=udp://127.0.0.1:5514 --log-opt syslog-facility=daemon --log-opt syslog-tag=app01   --name logging-02 -d -v $(pwd):/tmp  -w /tmp python:2.7 python -u logging-01.py
+    $ docker run --log-driver=syslog --log-opt syslog-address=udp://127.0.0.1:5514 --log-opt syslog-facility=daemon --log-opt tag=app01   --name logging-02 -d -v $(pwd):/tmp  -w /tmp python:2.7 python -u logging-01.py
 
 Let's break down into pieces this last command line:
 
-- `syslog-tag=app01`: A tag to apply to all messages coming from this container.
+- `tag=app01`: A tag to apply to all messages coming from this container.
 - `syslog-facility=daemon`: The syslog facility to be used
 - `--log-driver=syslog`: We're explicitly configuring our container to use the `syslog` driver.
 - `--log-opt syslog-address=udp://127.0.0.1:5514`: This indicates which syslog server we want to ship messages to and whether it should be done using TCP or UDP.
@@ -114,7 +114,7 @@ which will totally make sense once you give it a 5 seconds thought. There is no 
 
 see how our `app01` tag is present on each message? Now let’s launch a new instance of our sample application but this time we will use a new tag:
 
-    $ docker run --log-driver=syslog --log-opt syslog-address=udp://127.0.0.1:5514 --log-opt syslog-facility=daemon --log-opt syslog-tag=app02   --name logging-03 -d -v $(pwd):/tmp  -w /tmp python:2.7 python -u logging-01.py
+    $ docker run --log-driver=syslog --log-opt syslog-address=udp://127.0.0.1:5514 --log-opt syslog-facility=daemon --log-opt tag=app02   --name logging-03 -d -v $(pwd):/tmp  -w /tmp python:2.7 python -u logging-01.py
     $ docker exec  rsyslog tail -f /var/log/messages
     2015-09-16T01:11:27Z default docker/app02[989]: Error
     2015-09-16T01:11:27Z default docker/app02[989]: All Good
